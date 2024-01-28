@@ -6,8 +6,9 @@ using AvaloniaApplication1.ViewModels;
 using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
+using AvaloniaApplication1.Views;
 
-namespace AvaloniaApplication1.Views;
+namespace AvaloniaApplication1;
 
 public partial class App : Application
 {

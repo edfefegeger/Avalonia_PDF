@@ -1,18 +1,19 @@
+using Avalonia;
 using Avalonia.Controls;
-using QuestPDF;
-using QuestPDF.Infrastructure;
-
-
+using Avalonia.Media.Imaging; // Добавьте это пространство имен
 
 namespace AvaloniaApplication1.Views
 {
     public partial class PdfViewer : Window
     {
-        public void LoadPdf(byte[] pdfBytes)
+        public void LoadPdf(PdfiumViewer.PdfDocument pdfDocument)
         {
             // Используйте текущий экземпляр PdfViewer для отображения PDF-контента
-            var pdfDocument = new PdfDocumentBuilder().BuildPdf(pdfBytes);
-            Content = pdfDocument;
+            var pdfViewer = new PdfViewer();
+            pdfViewer.LoadPdf(pdfDocument);
+
+            Content = pdfViewer;
+
         }
     }
 }

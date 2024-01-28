@@ -5,8 +5,10 @@ using AvaloniaApplication1.Views;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using PdfiumViewer;
 
 namespace AvaloniaApplication1.ViewModels
 {
@@ -38,12 +40,20 @@ namespace AvaloniaApplication1.ViewModels
             try
             {
                 var pdfBytes = LoadPdfFile(filePath);
-                var pdfViewer = new PdfViewer();
-                pdfViewer.LoadPdf(pdfBytes);
 
-                if (GetMainWindow().Content is Panel mainPanel)
+                using (var stream = new MemoryStream(pdfBytes))
                 {
-                    mainPanel.Children.Add(pdfViewer);
+                    var document = PdfDocument.Load(stream);
+
+                    // Произведите действия с загруженным документом, например, отобразите его в PdfViewer
+                    var pdfViewer = new AvaloniaApplication1.Views.PdfViewer();
+                    pdfViewer.LoadPdf(document);
+
+                    if (GetMainWindow().Content is Panel mainPanel)
+                    {
+                        mainPanel.Children.Add(pdfViewer);
+                    }
+
                 }
             }
             catch (Exception ex)
@@ -51,6 +61,7 @@ namespace AvaloniaApplication1.ViewModels
                 Console.WriteLine($"Ошибка при открытии PDF: {ex.Message}");
             }
         }
+
 
         private byte[] LoadPdfFile(string filePath)
         {
