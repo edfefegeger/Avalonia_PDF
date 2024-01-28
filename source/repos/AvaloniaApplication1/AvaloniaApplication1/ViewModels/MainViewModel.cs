@@ -14,15 +14,23 @@ namespace AvaloniaApplication1.ViewModels
 {
     public class MainViewModel : ViewModelBase
     {
+        private readonly ICommand _selectPdfCommand;
+
+        public MainViewModel()
+        {
+            _selectPdfCommand = new RelayCommand(
+                async () => await SelectPdfAsync(),
+                () => true
+            );
+        }
+
+        public ICommand SelectPdfCommand => _selectPdfCommand;
+
         public async Task SelectPdfAsync()
         {
-            var fileDialog = new OpenFileDialog()
+            var fileDialog = new OpenFileDialog
             {
-                Title = "Выберите файл PDF",
-                Filters = new List<FileDialogFilter>(new FileDialogFilter[]
-                {
-                    new FileDialogFilter { Name = "PDF Files", Extensions = new List<string> { "pdf" } }
-                })
+                Title = "Выберите файл PDF"
             };
 
             var result = await fileDialog.ShowAsync(GetMainWindow());
@@ -53,7 +61,6 @@ namespace AvaloniaApplication1.ViewModels
                     {
                         mainPanel.Children.Add(pdfViewer);
                     }
-
                 }
             }
             catch (Exception ex)
@@ -61,7 +68,6 @@ namespace AvaloniaApplication1.ViewModels
                 Console.WriteLine($"Ошибка при открытии PDF: {ex.Message}");
             }
         }
-
 
         private byte[] LoadPdfFile(string filePath)
         {
@@ -78,19 +84,6 @@ namespace AvaloniaApplication1.ViewModels
             }
             throw new InvalidOperationException("Главное окно недоступно.");
         }
-
-        private ICommand _selectPdfCommand;
-
-        public ICommand SelectPdfCommand
-        {
-            get
-            {
-                return _selectPdfCommand ??= new RelayCommand(
-                    async () => await SelectPdfAsync(),
-                    () => true
-                );
-            }
-        }
     }
 
     public class RelayCommand : ICommand
@@ -104,11 +97,16 @@ namespace AvaloniaApplication1.ViewModels
             _canExecute = canExecute;
         }
 
-        public bool CanExecute(object parameter) => _canExecute?.Invoke() ?? true;
+        public bool CanExecute(object? parameter) => _canExecute?.Invoke() ?? true;
 
-        public async void Execute(object parameter) => await _execute();
 
-        public event EventHandler CanExecuteChanged;
+        public async void Execute(object? parameter) => await _execute();
+
+        public event EventHandler? CanExecuteChanged;
+
+
+        // Добавьте это свойство в класс MainViewModel
+        public string Greeting => "Привет, Avalonia!";
 
         public void RaiseCanExecuteChanged() => CanExecuteChanged?.Invoke(this, EventArgs.Empty);
     }
