@@ -2,6 +2,7 @@
 
 using Avalonia;
 using Avalonia.ReactiveUI;
+using AvaloniaApplication1.Views;
 
 namespace AvaloniaApplication1.Desktop;
 

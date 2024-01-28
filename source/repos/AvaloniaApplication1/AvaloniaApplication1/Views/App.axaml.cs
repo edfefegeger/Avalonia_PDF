@@ -3,11 +3,11 @@ using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 
 using AvaloniaApplication1.ViewModels;
-using AvaloniaApplication1.Views;
 using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
-namespace AvaloniaApplication1;
+
+namespace AvaloniaApplication1.Views;
 
 public partial class App : Application
 {

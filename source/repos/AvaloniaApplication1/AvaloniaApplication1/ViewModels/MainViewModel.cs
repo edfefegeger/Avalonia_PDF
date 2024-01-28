@@ -1,11 +1,10 @@
 ﻿using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
-using Avalonia.Dialogs;
-using Avalonia.Interactivity;
-using ReactiveUI;
+using AvaloniaApplication1.Views;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
@@ -13,20 +12,15 @@ namespace AvaloniaApplication1.ViewModels
 {
     public class MainViewModel : ViewModelBase
     {
-        private string _greeting;
-
-        public string Greeting
-        {
-            get => _greeting;
-            set => this.RaiseAndSetIfChanged(ref _greeting, value);
-        }
-
         public async Task SelectPdfAsync()
         {
             var fileDialog = new OpenFileDialog()
             {
-                Title = "Choose PDF file",
-                Filters = new List<FileDialogFilter> { new FileDialogFilter { Name = "PDF Files", Extensions = new List<string> { "pdf" } } }
+                Title = "Выберите файл PDF",
+                Filters = new List<FileDialogFilter>(new FileDialogFilter[]
+                {
+                    new FileDialogFilter { Name = "PDF Files", Extensions = new List<string> { "pdf" } }
+                })
             };
 
             var result = await fileDialog.ShowAsync(GetMainWindow());
@@ -34,9 +28,35 @@ namespace AvaloniaApplication1.ViewModels
             if (result != null && result.Length > 0)
             {
                 string selectedFile = result[0];
-                // Здесь можно добавить код для обработки выбранного PDF-файла
-                // Например, передать путь к файлу в другой компонент для отображения содержимого.
+                // Вызов метода для отображения PDF в PdfViewer
+                DisplayPdfAsync(selectedFile);
             }
+        }
+
+        private void DisplayPdfAsync(string filePath)
+        {
+            try
+            {
+                var pdfBytes = LoadPdfFile(filePath);
+                var pdfViewer = new PdfViewer();
+                pdfViewer.LoadPdf(pdfBytes);
+
+                if (GetMainWindow().Content is Panel mainPanel)
+                {
+                    mainPanel.Children.Add(pdfViewer);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Ошибка при открытии PDF: {ex.Message}");
+            }
+        }
+
+        private byte[] LoadPdfFile(string filePath)
+        {
+            // Здесь вы должны реализовать загрузку содержимого PDF-файла в виде массива байт
+            // Пример: использование System.IO.File.ReadAllBytes(filePath)
+            return System.IO.File.ReadAllBytes(filePath);
         }
 
         private Window GetMainWindow()
@@ -45,7 +65,7 @@ namespace AvaloniaApplication1.ViewModels
             {
                 return desktop.MainWindow;
             }
-            throw new InvalidOperationException("Main window is not available.");
+            throw new InvalidOperationException("Главное окно недоступно.");
         }
 
         private ICommand _selectPdfCommand;
