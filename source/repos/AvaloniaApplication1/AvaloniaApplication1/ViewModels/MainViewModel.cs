@@ -8,14 +8,17 @@ using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using PdfiumViewer;
+using System.Reflection.PortableExecutable;
+using PdfSharp.Pdf;
+using PdfSharp.Pdf.IO;
 
 namespace AvaloniaApplication1.ViewModels
 {
     public class MainViewModel : ViewModelBase
     {
         private readonly ICommand _selectPdfCommand;
-
+        // Добавьте это свойство в класс MainViewModel
+        public string Greeting => "Привет, Avalonia!";
         public MainViewModel()
         {
             _selectPdfCommand = new RelayCommand(
@@ -28,6 +31,7 @@ namespace AvaloniaApplication1.ViewModels
 
         public async Task SelectPdfAsync()
         {
+            Console.WriteLine("SelectPdfAsync is called");
             var fileDialog = new OpenFileDialog
             {
                 Title = "Выберите файл PDF"
@@ -38,6 +42,7 @@ namespace AvaloniaApplication1.ViewModels
             if (result != null && result.Length > 0)
             {
                 string selectedFile = result[0];
+                Console.WriteLine($"Selected PDF file: {selectedFile}");
                 // Вызов метода для отображения PDF в PdfViewer
                 DisplayPdfAsync(selectedFile);
             }
@@ -47,27 +52,27 @@ namespace AvaloniaApplication1.ViewModels
         {
             try
             {
-                var pdfBytes = LoadPdfFile(filePath);
+                Console.WriteLine($"Attempting to open PDF file: {filePath}");
+                var pdfDocument = PdfReader.Open(filePath, PdfDocumentOpenMode.Import);
 
-                using (var stream = new MemoryStream(pdfBytes))
+                // Произведите действия с загруженным документом, например, отобразите его в PdfViewer
+                var pdfViewer = new AvaloniaApplication1.Views.PdfViewer();
+                pdfViewer.LoadPdf(pdfDocument);
+
+                if (GetMainWindow().Content is Panel mainPanel)
                 {
-                    var document = PdfDocument.Load(stream);
-
-                    // Произведите действия с загруженным документом, например, отобразите его в PdfViewer
-                    var pdfViewer = new AvaloniaApplication1.Views.PdfViewer();
-                    pdfViewer.LoadPdf(document);
-
-                    if (GetMainWindow().Content is Panel mainPanel)
-                    {
-                        mainPanel.Children.Add(pdfViewer);
-                    }
+                    mainPanel.Children.Add(pdfViewer);
+                    Console.WriteLine("PDF loaded successfully");
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Ошибка при открытии PDF: {ex.Message}");
+                Console.WriteLine($"Error opening PDF: {ex.Message}");
+                // Добавьте эту строку, чтобы увидеть подробную информацию об ошибке в консоли
+                Console.WriteLine(ex.StackTrace);
             }
         }
+
 
         private byte[] LoadPdfFile(string filePath)
         {
@@ -105,8 +110,7 @@ namespace AvaloniaApplication1.ViewModels
         public event EventHandler? CanExecuteChanged;
 
 
-        // Добавьте это свойство в класс MainViewModel
-        public string Greeting => "Привет, Avalonia!";
+
 
         public void RaiseCanExecuteChanged() => CanExecuteChanged?.Invoke(this, EventArgs.Empty);
     }

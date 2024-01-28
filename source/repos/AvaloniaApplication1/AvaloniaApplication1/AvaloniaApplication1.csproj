@@ -15,11 +15,11 @@
     <PackageReference Include="Avalonia.Themes.Fluent" Version="11.0.7" />
     <PackageReference Include="Avalonia.Fonts.Inter" Version="11.0.7" />
     <PackageReference Include="Avalonia.ReactiveUI" Version="11.0.7" />
-    <PackageReference Include="PdfiumViewer" Version="2.13.0" />
-    <PackageReference Include="PdfiumViewer.Native.x86_64.v8-xfa" Version="2018.4.8.256" />
+ 
 	<PackageReference Include="QuestPDF" Version="2023.12.4" />
-	  
-    <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
+	  <PackageReference Include="PDFsharp" Version="6.0.0" />
+
+	  <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
     <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.0.7" />
   </ItemGroup>
 </Project>

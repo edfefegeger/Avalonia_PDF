@@ -1,19 +1,26 @@
-using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Media.Imaging; // Добавьте это пространство имен
+using PdfSharp.Pdf;
+using System;
 
 namespace AvaloniaApplication1.Views
 {
-    public partial class PdfViewer : Window
+    public partial class PdfViewer : UserControl
     {
-        public void LoadPdf(PdfiumViewer.PdfDocument pdfDocument)
+        public void LoadPdf(PdfSharp.Pdf.PdfDocument pdfDocument)
         {
-            // Используйте текущий экземпляр PdfViewer для отображения PDF-контента
-            var pdfViewer = new PdfViewer();
-            pdfViewer.LoadPdf(pdfDocument);
-
-            Content = pdfViewer;
-
+            Console.WriteLine("Loading PDF...");
+            try
+            {
+                // Используйте текущий экземпляр PdfViewer для отображения PDF-контента
+                // Обратите внимание, что теперь используется PdfSharp.Pdf.PdfDocument
+                Content = pdfDocument;
+                Console.WriteLine("PDF loaded successfully.");
+            }
+            catch (Exception ex)
+            {
+                // Выводите информацию об ошибке
+                Console.WriteLine($"Error loading PDF: {ex.Message}");
+            }
         }
     }
 }
