@@ -55,23 +55,38 @@ namespace AvaloniaApplication1.ViewModels
                 Console.WriteLine($"Attempting to open PDF file: {filePath}");
                 var pdfDocument = PdfReader.Open(filePath, PdfDocumentOpenMode.Import);
 
-                // Произведите действия с загруженным документом, например, отобразите его в PdfViewer
+                // Создайте новый экземпляр PdfViewer и загрузите в него PDF-документ
                 var pdfViewer = new AvaloniaApplication1.Views.PdfViewer();
                 pdfViewer.LoadPdf(pdfDocument);
 
-                if (GetMainWindow().Content is Panel mainPanel)
-                {
-                    mainPanel.Children.Add(pdfViewer);
-                    Console.WriteLine("PDF loaded successfully");
-                }
+                // Откройте новое окно с PdfViewer
+                OpenPdfViewerWindow(pdfViewer);
+
+                Console.WriteLine("PDF loaded successfully");
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Error opening PDF: {ex.Message}");
-                // Добавьте эту строку, чтобы увидеть подробную информацию об ошибке в консоли
                 Console.WriteLine(ex.StackTrace);
             }
         }
+
+        private void OpenPdfViewerWindow(PdfViewer pdfViewer)
+        {
+            var newWindow = new Window
+            {
+                Title = "PDF Viewer Window",
+                Content = pdfViewer,
+                Width = 800, // Установите желаемую ширину
+                Height = 600, // Установите желаемую высоту
+            };
+
+            if (Application.Current.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
+            {
+                newWindow.Show();
+            }
+        }
+
 
 
         private byte[] LoadPdfFile(string filePath)
