@@ -11,9 +11,10 @@ using System.Windows.Input;
 using System.Reflection.PortableExecutable;
 using PdfSharp.Pdf;
 using PdfSharp.Pdf.IO;
-
+using PdfiumViewer;
 namespace AvaloniaApplication1.ViewModels
 {
+
     public class MainViewModel : ViewModelBase
     {
         private readonly ICommand _selectPdfCommand;
@@ -53,11 +54,12 @@ namespace AvaloniaApplication1.ViewModels
             try
             {
                 Console.WriteLine($"Attempting to open PDF file: {filePath}");
-                var pdfDocument = PdfReader.Open(filePath, PdfDocumentOpenMode.Import);
 
-                // Создайте новый экземпляр PdfViewer и загрузите в него PDF-документ
+                var pdfContent = LoadPdfFile(filePath);
+
+                // Создайте новый экземпляр PdfViewer и загрузите в него содержимое PDF
                 var pdfViewer = new AvaloniaApplication1.Views.PdfViewer();
-                pdfViewer.LoadPdf(pdfDocument);
+                pdfViewer.LoadPdf(pdfContent);
 
                 // Откройте новое окно с PdfViewer
                 OpenPdfViewerWindow(pdfViewer);
@@ -71,21 +73,32 @@ namespace AvaloniaApplication1.ViewModels
             }
         }
 
-        private void OpenPdfViewerWindow(PdfViewer pdfViewer)
+
+        private void OpenPdfViewerWindow(AvaloniaApplication1.Views.PdfViewer pdfViewer)
         {
             var newWindow = new Window
             {
                 Title = "PDF Viewer Window",
+                Width = 800,
+                Height = 600,
                 Content = pdfViewer,
-                Width = 800, // Установите желаемую ширину
-                Height = 600, // Установите желаемую высоту
+            };
+
+            newWindow.PointerWheelChanged += (sender, e) =>
+            {
+                if (e.Delta.Y > 0)
+                    pdfViewer.ScrollPage(-1);
+                else
+                    pdfViewer.ScrollPage(1);
             };
 
             if (Application.Current.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
-                newWindow.Show();
+                newWindow.ShowDialog(desktop.MainWindow);
             }
         }
+
+
 
 
 

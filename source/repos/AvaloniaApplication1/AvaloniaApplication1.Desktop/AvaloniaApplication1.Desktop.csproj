@@ -13,9 +13,16 @@
     <PackageReference Include="Avalonia.Desktop" Version="11.0.7" />
 	<PackageReference Include="Avalonia.ReactiveUI" Version="11.0.7" />
 	<PackageReference Include="AvaloniaUI.PrintToPDF" Version="0.4.0" />
+	<PackageReference Include="ImageResizer.Plugins.PdfiumRenderer" Version="4.2.8" />
 	<PackageReference Include="NReco.PdfRenderer" Version="1.5.3" />
+	<PackageReference Include="PdfiumViewer" Version="2.13.0" />
 	<PackageReference Include="PDFsharp" Version="6.0.0" />
 	<PackageReference Include="QuestPDF" Version="2023.12.4" />
+	  <PackageReference Include="SkiaSharp" Version="2.88.7" />
+
+	  <PackageReference Include="Syncfusion.EJ2.AspNet.Core" Version="24.1.47" />
+
+	  <PackageReference Include="Syncfusion.EJ2.PdfViewer.AspNet.Core.Windows" Version="24.1.47" />
   </ItemGroup>
 
   <ItemGroup>
