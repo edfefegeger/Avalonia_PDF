@@ -101,13 +101,11 @@ namespace AvaloniaApplication1.ViewModels
                     pdfViewer.ScrollPage(1);
             };
 
-            // Добавление задержки перед ожиданием завершения операции загрузки PDF-файла
-            await Task.Delay(3000); // Или укажите другую длительность задержки по необходимости
-
             await pdfViewer.LoadPdfTask;
 
             newWindow.Show();
         }
+
 
 
 

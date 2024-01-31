@@ -20,10 +20,10 @@ namespace AvaloniaApplication1.Views
         // Поле и свойство для отслеживания завершения загрузки PDF-файла
         private TaskCompletionSource<bool> _loadPdfTaskCompletionSource = new TaskCompletionSource<bool>();
         public Task LoadPdfTask => _loadPdfTaskCompletionSource.Task;
-    
 
 
-    public PdfViewer()
+
+        public PdfViewer()
         {
             AvaloniaXamlLoader.Load(this);
         }
@@ -59,27 +59,34 @@ namespace AvaloniaApplication1.Views
         private void UpdateDisplayedPage()
         {
             var textBlock = this.FindControl<TextBlock>("pdfTextBlock");
-            textBlock.Text = "Hello PDF12!";
+            textBlock.Text = $"Page {_currentPageIndex + 1} of {_pdfDocument.PageCount}";
+
             if (_pdfDocument != null && _currentPageIndex >= 0 && _currentPageIndex < _pdfDocument.PageCount)
             {
                 var page = _pdfDocument.Pages[_currentPageIndex];
 
-                // Используйте Dispatcher.UIThread.Post для выполнения кода в основном потоке
-                Dispatcher.UIThread.Post(() =>
-                {
-                    // Обновление UI с использованием page
-                });
+                // Set the width of the displayed page
+                
+
+                // ... Rest of the code
             }
         }
+
 
 
         public void ScrollPage(int delta)
         {
             if (_pdfDocument != null)
             {
-                _currentPageIndex = Math.Max(0, Math.Min(_pdfDocument.PageCount - 1, _currentPageIndex + delta));
-                UpdateDisplayedPage();
+                int newPageIndex = Math.Max(0, Math.Min(_pdfDocument.PageCount - 1, _currentPageIndex + delta));
+
+                if (newPageIndex != _currentPageIndex)
+                {
+                    _currentPageIndex = newPageIndex;
+                    UpdateDisplayedPage();
+                }
             }
         }
+
     }
 }
