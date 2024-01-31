@@ -8,6 +8,7 @@ using Avalonia.Layout;
 using Avalonia.Controls.Primitives;
 using Avalonia.Markup.Xaml;
 using Avalonia.Threading;
+using System.Threading.Tasks;
 
 namespace AvaloniaApplication1.Views
 {
@@ -16,7 +17,13 @@ namespace AvaloniaApplication1.Views
         private PdfDocument _pdfDocument;
         private int _currentPageIndex = 0;
 
-        public PdfViewer()
+        // Поле и свойство для отслеживания завершения загрузки PDF-файла
+        private TaskCompletionSource<bool> _loadPdfTaskCompletionSource = new TaskCompletionSource<bool>();
+        public Task LoadPdfTask => _loadPdfTaskCompletionSource.Task;
+    
+
+
+    public PdfViewer()
         {
             AvaloniaXamlLoader.Load(this);
         }
@@ -36,6 +43,9 @@ namespace AvaloniaApplication1.Views
                     _pdfDocument = PdfReader.Open(stream, PdfDocumentOpenMode.Import);
                     UpdateDisplayedPage();
                 }
+
+                // Установка значения TaskCompletionSource при завершении загрузки PDF-файла
+                _loadPdfTaskCompletionSource.TrySetResult(true);
             }
             catch (Exception ex)
             {
@@ -43,6 +53,7 @@ namespace AvaloniaApplication1.Views
                 // Дополнительная обработка ошибки
             }
         }
+
 
 
         private void UpdateDisplayedPage()

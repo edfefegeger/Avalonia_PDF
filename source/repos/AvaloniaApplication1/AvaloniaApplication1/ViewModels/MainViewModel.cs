@@ -77,7 +77,7 @@ namespace AvaloniaApplication1.ViewModels
 
 
 
-        private void OpenPdfViewerWindow(AvaloniaApplication1.Views.PdfViewer pdfViewer)
+        private async void OpenPdfViewerWindow(AvaloniaApplication1.Views.PdfViewer pdfViewer)
         {
             var newWindow = new Window
             {
@@ -101,8 +101,16 @@ namespace AvaloniaApplication1.ViewModels
                     pdfViewer.ScrollPage(1);
             };
 
+            // Добавление задержки перед ожиданием завершения операции загрузки PDF-файла
+            await Task.Delay(3000); // Или укажите другую длительность задержки по необходимости
+
+            await pdfViewer.LoadPdfTask;
+
             newWindow.Show();
         }
+
+
+
 
         private byte[] LoadPdfFile(string filePath)
         {
