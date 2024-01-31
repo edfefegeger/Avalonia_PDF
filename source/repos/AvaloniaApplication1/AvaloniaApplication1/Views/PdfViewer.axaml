@@ -10,6 +10,10 @@
 		<ScrollViewer Name="scrollViewer" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
 			<Image Name="pdfImage" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 		</ScrollViewer>
+		<StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Vertical">
+			<TextBlock Name="pdfTextBlock" Text="Hello PDF!" />
+		</StackPanel>
+
 	</Grid>
 
 </UserControl>

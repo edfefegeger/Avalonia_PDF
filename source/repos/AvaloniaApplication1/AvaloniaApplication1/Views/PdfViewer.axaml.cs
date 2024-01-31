@@ -58,6 +58,8 @@ namespace AvaloniaApplication1.Views
 
         private void UpdateDisplayedPage()
         {
+            var textBlock = this.FindControl<TextBlock>("pdfTextBlock");
+            textBlock.Text = "Hello PDF12!";
             if (_pdfDocument != null && _currentPageIndex >= 0 && _currentPageIndex < _pdfDocument.PageCount)
             {
                 var page = _pdfDocument.Pages[_currentPageIndex];
