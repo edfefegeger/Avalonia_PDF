@@ -1,17 +1,10 @@
 ﻿using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
-using AvaloniaApplication1.Views;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using System.Windows.Input;
-using System.Reflection.PortableExecutable;
-using PdfSharp.Pdf;
-using PdfSharp.Pdf.IO;
-using PdfiumViewer;
 namespace AvaloniaApplication1.ViewModels
 {
 
@@ -44,10 +37,19 @@ namespace AvaloniaApplication1.ViewModels
             {
                 string selectedFile = result[0];
                 Console.WriteLine($"Selected PDF file: {selectedFile}");
-                // Вызов метода для отображения PDF в PdfViewer
-                DisplayPdfAsync(selectedFile);
+
+                try
+                {
+                    // Вызов метода для отображения PDF в PdfViewer
+                    DisplayPdfAsync(selectedFile);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error displaying PDF: {ex.Message}");
+                }
             }
         }
+
 
         private void DisplayPdfAsync(string filePath)
         {
@@ -74,6 +76,7 @@ namespace AvaloniaApplication1.ViewModels
         }
 
 
+
         private void OpenPdfViewerWindow(AvaloniaApplication1.Views.PdfViewer pdfViewer)
         {
             var newWindow = new Window
@@ -81,7 +84,13 @@ namespace AvaloniaApplication1.ViewModels
                 Title = "PDF Viewer Window",
                 Width = 800,
                 Height = 600,
-                Content = pdfViewer,
+                Content = new Avalonia.Controls.ScrollViewer
+                {
+                    Name = "scrollViewer",
+                    HorizontalScrollBarVisibility = (Avalonia.Controls.Primitives.ScrollBarVisibility)ScrollBarVisibility.Disabled,
+                    VerticalScrollBarVisibility = (Avalonia.Controls.Primitives.ScrollBarVisibility)ScrollBarVisibility.Auto,
+                    Content = pdfViewer,
+                },
             };
 
             newWindow.PointerWheelChanged += (sender, e) =>
@@ -92,15 +101,8 @@ namespace AvaloniaApplication1.ViewModels
                     pdfViewer.ScrollPage(1);
             };
 
-            if (Application.Current.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
-            {
-                newWindow.ShowDialog(desktop.MainWindow);
-            }
+            newWindow.Show();
         }
-
-
-
-
 
         private byte[] LoadPdfFile(string filePath)
         {
@@ -132,14 +134,19 @@ namespace AvaloniaApplication1.ViewModels
 
         public bool CanExecute(object? parameter) => _canExecute?.Invoke() ?? true;
 
+        public async void Execute(object? parameter) => await ExecuteAsync();
 
-        public async void Execute(object? parameter) => await _execute();
+        public async Task ExecuteAsync()
+        {
+            if (CanExecute(null))
+            {
+                await _execute();
+            }
+        }
 
         public event EventHandler? CanExecuteChanged;
 
-
-
-
         public void RaiseCanExecuteChanged() => CanExecuteChanged?.Invoke(this, EventArgs.Empty);
     }
+
 }

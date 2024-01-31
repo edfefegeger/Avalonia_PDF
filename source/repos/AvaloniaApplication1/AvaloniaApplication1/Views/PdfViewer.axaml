@@ -6,8 +6,10 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="AvaloniaApplication1.Views.PdfViewer">
 
-	<ScrollViewer Name="scrollViewer" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
-		<Image Name="pdfImage" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-	</ScrollViewer>
+	<Grid>
+		<ScrollViewer Name="scrollViewer" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+			<Image Name="pdfImage" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+		</ScrollViewer>
+	</Grid>
 
 </UserControl>
