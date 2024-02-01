@@ -8,12 +8,10 @@
 
 	<Grid>
 		<ScrollViewer Name="scrollViewer" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
-			<Image Name="pdfImage" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center" Width="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=ActualWidth}"/>
+			<Image Name="pdfImage" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 		</ScrollViewer>
 		<StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Vertical">
-			<TextBlock Name="pdfTextBlock" Text="Hello PDF!" />
+			<TextBlock Name="pdfTextBlock" Text="Привет, PDF!" />
 		</StackPanel>
 	</Grid>
-
-
 </UserControl>

@@ -15,10 +15,17 @@
     <PackageReference Include="Avalonia.Themes.Fluent" Version="11.0.7" />
     <PackageReference Include="Avalonia.Fonts.Inter" Version="11.0.7" />
     <PackageReference Include="Avalonia.ReactiveUI" Version="11.0.7" />
-
+    <PackageReference Include="bblanchon.PDFium.Win32" Version="123.0.6268" />
+    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.2210.55" />
+    <PackageReference Include="Pdfium.Net.SDK" Version="4.88.2704" />
+    <PackageReference Include="PDFium.Windows" Version="1.0.0" />
+    <PackageReference Include="PdfiumViewer" Version="2.13.0" />
+    <PackageReference Include="PdfiumViewer.Native.x86.v8-xfa" Version="2018.4.8.256" />
+    <PackageReference Include="PdfiumViewer.Native.x86_64.v8-xfa" Version="2018.4.8.256" />
 	<PackageReference Include="QuestPDF" Version="2023.12.4" />
 	  <PackageReference Include="PDFsharp" Version="6.0.0" />
 	  <PackageReference Include="SkiaSharp" Version="2.88.7" />
+	 
 
 
 	  <PackageReference Include="Syncfusion.EJ2.AspNet.Core" Version="24.1.47" />

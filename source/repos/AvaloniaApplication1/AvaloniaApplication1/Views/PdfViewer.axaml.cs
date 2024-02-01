@@ -66,7 +66,7 @@ namespace AvaloniaApplication1.Views
                 var page = _pdfDocument.Pages[_currentPageIndex];
 
                 // Set the width of the displayed page
-                
+
 
                 // ... Rest of the code
             }
