@@ -3,7 +3,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="clr-namespace:AvaloniaApplication1.ViewModels"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:local="clr-namespace:AvaloniaApplication1.Views"
+             mc:Ignorable="d" d:DesignWidth="500" d:DesignHeight="250"
              x:Class="AvaloniaApplication1.Views.MainView"
              x:DataType="vm:MainViewModel">
 
@@ -11,8 +12,14 @@
 		<vm:MainViewModel />
 	</Design.DataContext>
 
+<<<<<<< HEAD
 	<StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
 		<TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 		<Button Content="Выбрать PDF" Command="{Binding SelectPdfCommand}" Margin="5"/>
+=======
+	<StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Vertical">
+		<TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center"/>
+		<Button Content="Выбрать PDF" Command="{Binding SelectPdfCommand}" HorizontalAlignment="Center" Margin="0,10,0,0"/>
+>>>>>>> 50432bc8e79851b838f51c1bf911896fd60cb0ea
 	</StackPanel>
 </UserControl>

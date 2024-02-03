@@ -3,6 +3,8 @@ using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using AvaloniaApplication1.ViewModels;
+using Avalonia.Input;
+using Avalonia.Interactivity;
 using AvaloniaApplication1.Views;
 
 namespace AvaloniaApplication1
