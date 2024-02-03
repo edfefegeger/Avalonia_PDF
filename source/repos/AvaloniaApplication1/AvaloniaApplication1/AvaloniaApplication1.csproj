@@ -22,9 +22,8 @@
     <PackageReference Include="PdfiumViewer" Version="2.13.0" />
     <PackageReference Include="PdfiumViewer.Native.x86.v8-xfa" Version="2018.4.8.256" />
     <PackageReference Include="PdfiumViewer.Native.x86_64.v8-xfa" Version="2018.4.8.256" />
-	<PackageReference Include="QuestPDF" Version="2023.12.4" />
-	  <PackageReference Include="PDFsharp" Version="6.0.0" />
-	  <PackageReference Include="SkiaSharp" Version="2.88.7" />
+
+
 	 
 
 
