@@ -45,14 +45,38 @@ namespace AvaloniaApplication1.Views
 
         private Avalonia.Media.Imaging.Bitmap RenderPdfPage(int pageIndex)
         {
-            var pdfBitmap = _pdfDocument.Render(pageIndex, 96, 96, PdfRenderFlags.Annotations);
-
-            // Преобразование System.Drawing.Image в Avalonia.Media.Imaging.Bitmap
-            using (MemoryStream memoryStream = new MemoryStream())
+            try
             {
-                pdfBitmap.Save(memoryStream, ImageFormat.Png);
-                memoryStream.Position = 0;
-                return new Avalonia.Media.Imaging.Bitmap(memoryStream);
+                // Добавим дополнительную проверку на null
+                if (_pdfDocument == null)
+                {
+                    Console.WriteLine("PDF document is null.");
+                    return null; // Или верните Bitmap по умолчанию, если необходимо
+                }
+
+                var pdfBitmap = _pdfDocument.Render(pageIndex, 96, 96, PdfRenderFlags.Annotations);
+
+                using (MemoryStream memoryStream = new MemoryStream())
+                {
+                    // Проверка, что поток не закрыт
+                    if (memoryStream.CanWrite)
+                    {
+                        pdfBitmap.Save(memoryStream, ImageFormat.Png);
+                        memoryStream.Position = 0;
+
+                        return new Avalonia.Media.Imaging.Bitmap(memoryStream);
+                    }
+                    else
+                    {
+                        Console.WriteLine("MemoryStream is closed.");
+                        return null; // Или верните Bitmap по умолчанию, если необходимо
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error rendering PDF page: {ex.Message}");
+                return null; // Или верните Bitmap по умолчанию, если необходимо
             }
         }
 
