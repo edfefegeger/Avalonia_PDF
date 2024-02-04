@@ -63,8 +63,10 @@ namespace AvaloniaApplication1.ViewModels
                 var pdfViewer = new AvaloniaApplication1.Views.PdfViewer();
                 pdfViewer.LoadPdf(pdfContent);
 
-                // Откройте новое окно с PdfViewer
-                OpenPdfViewerWindow(pdfViewer);
+                // Вместо создания нового окна, добавьте PdfViewer в текущий контейнер
+                var mainWindow = GetMainWindow();
+                var mainView = mainWindow.Content as Avalonia.Controls.UserControl; // Предположим, что ваш контент - это UserControl
+                mainView.Content = pdfViewer;
 
                 Console.WriteLine("PDF loaded successfully");
             }
@@ -74,6 +76,7 @@ namespace AvaloniaApplication1.ViewModels
                 Console.WriteLine(ex.StackTrace);
             }
         }
+
 
 
 
