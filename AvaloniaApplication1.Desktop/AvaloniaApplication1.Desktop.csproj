@@ -1,0 +1,32 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <!--If you are willing to use Windows/MacOS native APIs you will need to create 3 projects.
+    One for Windows with net7.0-windows TFM, one for MacOS with net7.0-macos and one with net7.0 TFM for Linux.-->
+	<TargetFramework>net8.0-windows10.0.19041.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Avalonia.Desktop" Version="11.0.7" />
+	<PackageReference Include="Avalonia.ReactiveUI" Version="11.0.7" />
+	<PackageReference Include="AvaloniaUI.PrintToPDF" Version="0.4.0" />
+	<PackageReference Include="bblanchon.PDFium.Win32" Version="123.0.6268" />
+	<PackageReference Include="Microsoft.Web.WebView2" Version="1.0.2210.55" />
+	<PackageReference Include="NReco.PdfRenderer" Version="1.5.3" />
+	<PackageReference Include="Pdfium.Net.SDK" Version="4.88.2704" />
+	<PackageReference Include="PDFium.Windows" Version="1.0.0" />
+	<PackageReference Include="PDFiumSharp" Version="1.4660.0-alpha1" />
+	<PackageReference Include="PdfiumViewer.Native.x86.v8-xfa" Version="2018.4.8.256" />
+	<PackageReference Include="PdfiumViewer.Native.x86_64.v8-xfa" Version="2018.4.8.256" />
+	<PackageReference Include="PdfiumViewer.Updated" Version="2.14.4" />
+
+
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AvaloniaApplication1\AvaloniaApplication1.csproj" />
+  </ItemGroup>
+</Project>

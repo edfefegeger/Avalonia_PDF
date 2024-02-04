@@ -1,0 +1,17 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:AvaloniaApplication1.Views"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="1450"
+             x:Class="AvaloniaApplication1.Views.PdfViewer">
+
+	<Grid>
+		<ScrollViewer Name="scrollViewer" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+			<Image Name="pdfImage" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+		</ScrollViewer>
+		<StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Vertical">
+			<TextBlock Name="pdfTextBlock" Text="Привет, PDF!" />
+		</StackPanel>
+	</Grid>
+</UserControl>
